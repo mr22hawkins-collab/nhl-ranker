@@ -1,6 +1,7 @@
 import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from rank_players import rank_players
 
 app = FastAPI()
@@ -11,6 +12,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+@app.get("/")
+def serve_frontend():
+    return FileResponse("index.html")
 
 @app.get("/players/centres")
 def get_centres():
